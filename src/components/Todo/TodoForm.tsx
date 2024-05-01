@@ -140,7 +140,7 @@ const TodoForm: React.FC = () => {
           tasks.map((task) => (
             <Card
               key={task.id}
-              className="mt-5 max-w-sm items-center border-purple-400 bg-gray-900"
+              className="mt-5 max-w-sm items-center border-none bg-gray-900"
             >
               <CardHeader>
                 <div className="flex items-center justify-between ">
@@ -151,7 +151,7 @@ const TodoForm: React.FC = () => {
                     {/* Edit task button */}
                     <Button
                       variant="outline"
-                      className="p-2 text-sm bg-gray-900 border-purple-400 text-purple-400 hover:bg-purple-700"
+                      className="p-2 text-sm bg-gray-900 border-none text-purple-400 hover:bg-purple-700"
                       onClick={() => openEditDialog(task)}
                     >
                       <Pencil />
@@ -197,7 +197,7 @@ const TodoForm: React.FC = () => {
                     {/* Complete task button */}
                     <Button
                       variant="outline"
-                      className="p-2 text-sm border-purple-400 text-purple-400 hover:bg-purple-700"
+                      className="p-2 text-sm bg-gray-900 border-none text-purple-400 hover:bg-purple-700"
                       onClick={() => handleCompleteTask(task)}
                     >
                       <Check />
@@ -208,7 +208,7 @@ const TodoForm: React.FC = () => {
                       <DialogTrigger>
                         <Button
                           variant="outline"
-                          className="p-2 text-sm border-purple-400 text-purple-400 hover:bg-purple-700"
+                          className="p-2 text-sm border-none bg-gray-900 text-purple-400 hover:bg-purple-700"
                           onClick={() => setTaskToDelete(task)}
                         >
                           <Trash />
@@ -264,13 +264,10 @@ const TodoForm: React.FC = () => {
         ) : (
           // Render successful tasks list when not showing skeleton
           successfulTasks.map((task) => (
-            <Card
-              key={task.id}
-              className="w-full mt-5 border-purple-400 bg-gray-900"
-            >
+            <Card key={task.id} className="w-full mt-5 border-none bg-gray-900">
               <CardHeader>
                 <div className="flex items-center justify-between">
-                  <CardTitle className="font-normal text-xl line-through text-purple-400">
+                  <CardTitle className="font-normal text-xl line-through text-green-400">
                     {task.title}
                   </CardTitle>
                 </div>
