@@ -709,6 +709,9 @@ video {
   .w-4 {
   width: 1rem;
 }
+  .w-1\/2 {
+  width: 50%;
+}
   .max-w-sm {
   max-width: 24rem;
 }
