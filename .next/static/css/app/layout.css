@@ -785,6 +785,10 @@ video {
   .border-input {
   border-color: hsl(var(--input));
 }
+  .border-green-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(34 197 94 / var(--tw-border-opacity));
+}
   .bg-background {
   background-color: hsl(var(--background));
 }
@@ -918,6 +922,10 @@ video {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
+  .text-green-500 {
+  --tw-text-opacity: 1;
+  color: rgb(34 197 94 / var(--tw-text-opacity));
+}
   .line-through {
   text-decoration-line: line-through;
 }
@@ -1012,6 +1020,11 @@ video {
 
   .hover\:bg-secondary\/80:hover {
   background-color: hsl(var(--secondary) / 0.8);
+}
+
+  .hover\:bg-green-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 252 231 / var(--tw-bg-opacity));
 }
 
   .hover\:text-accent-foreground:hover {
