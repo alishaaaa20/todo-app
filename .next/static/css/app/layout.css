@@ -985,6 +985,9 @@ video {
   .text-foreground\/50 {
   color: hsl(var(--foreground) / 0.5);
 }
+  .overline {
+  text-decoration-line: overline;
+}
   .line-through {
   text-decoration-line: line-through;
 }

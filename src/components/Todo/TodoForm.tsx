@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardTitle, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -78,6 +78,8 @@ const TodoForm: React.FC = () => {
   const handleCompleteTask = (task: Task) => {
     setSuccessfulTasks((prev) => [...prev, task]);
     setTasks((prev) => prev.filter((t) => t.id !== task.id));
+
+    console.log("Task completed:", task.title);
 
     toast({
       description: "Your task is successfully completed.",
@@ -199,12 +201,12 @@ const TodoForm: React.FC = () => {
 
       {/* Displaying the list of successful tasks */}
       <div>
-        <h3 className="mt-10 text-xl font-semibold">Completed tasks:</h3>
+        <h3 className="mt-10 text-xl font-semibold">Successful tasks:</h3>
         {successfulTasks.map((task) => (
           <Card key={task.id} className="w-full mt-5">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle className="font-normal text-xl">
+                <CardTitle className="font-normal text-xl 	text-decoration-line: line-through">
                   {task.title}
                 </CardTitle>
               </div>
