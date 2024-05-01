@@ -104,22 +104,26 @@ const TodoForm: React.FC = () => {
       {/* Form for adding a new task */}
       <form
         onSubmit={handleAddTask}
-        className="flex w-full max-w-sm items-center space-x-2"
+        className="flex w-full max-w-sm items-center space-x-2 text-white"
       >
         <Input
           type="text"
+          className="border-purple-400 "
           placeholder="Add a new task"
           value={taskTitle}
           onChange={(e) => setTaskTitle(e.target.value)}
         />
-        <Button type="submit" className="p-2 text-sm">
+        <Button
+          type="submit"
+          className="p-2 text-sm bg-purple-400 hover:bg-purple-700"
+        >
           <Plus />
         </Button>
       </form>
 
       {/* displaying tasks to do */}
       <div>
-        <h3 className="mt-10 text-xl font-semibold">
+        <h3 className="mt-10 text-xl font-semibold text-white">
           Tasks to do: {tasks.length}
         </h3>
         {/* Conditionally render skeleton */}
@@ -134,17 +138,20 @@ const TodoForm: React.FC = () => {
         ) : (
           // Render tasks list when not showing skeleton
           tasks.map((task) => (
-            <Card key={task.id} className="mt-5 max-w-sm items-center">
+            <Card
+              key={task.id}
+              className="mt-5 max-w-sm items-center border-purple-400 bg-gray-900"
+            >
               <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle className="font-normal text-xl">
+                <div className="flex items-center justify-between ">
+                  <CardTitle className="font-normal text-xl text-purple-400">
                     {task.title}
                   </CardTitle>
                   <div className="flex space-x-2">
                     {/* Edit task button */}
                     <Button
                       variant="outline"
-                      className="p-2 text-sm"
+                      className="p-2 text-sm bg-gray-900 border-purple-400 text-purple-400 hover:bg-purple-700"
                       onClick={() => openEditDialog(task)}
                     >
                       <Pencil />
@@ -155,7 +162,9 @@ const TodoForm: React.FC = () => {
                       <Dialog open onOpenChange={() => setTaskToEdit(null)}>
                         <DialogContent>
                           <DialogHeader>
-                            <DialogTitle>Edit Task</DialogTitle>
+                            <DialogTitle className="text-white">
+                              Edit Task
+                            </DialogTitle>
                             <DialogDescription>
                               Make changes to your task here. Click save when
                               you're done.
@@ -172,7 +181,7 @@ const TodoForm: React.FC = () => {
                                 onChange={(e) =>
                                   setEditTaskTitle(e.target.value)
                                 }
-                                className="col-span-3"
+                                className="col-span-3 text-white border-purple-400"
                               />
                             </div>
                           </div>
@@ -188,7 +197,7 @@ const TodoForm: React.FC = () => {
                     {/* Complete task button */}
                     <Button
                       variant="outline"
-                      className="p-2 text-sm border-green-500 text-green-500 hover:bg-green-100"
+                      className="p-2 text-sm border-purple-400 text-purple-400 hover:bg-purple-700"
                       onClick={() => handleCompleteTask(task)}
                     >
                       <Check />
@@ -198,14 +207,14 @@ const TodoForm: React.FC = () => {
                     <Dialog>
                       <DialogTrigger>
                         <Button
-                          variant="destructive"
-                          className="p-2 text-sm"
+                          variant="outline"
+                          className="p-2 text-sm border-purple-400 text-purple-400 hover:bg-purple-700"
                           onClick={() => setTaskToDelete(task)}
                         >
                           <Trash />
                         </Button>
                       </DialogTrigger>
-                      <DialogContent>
+                      <DialogContent className="text-white">
                         <DialogHeader>
                           <DialogTitle>
                             Are you sure you want to delete this task?
@@ -240,7 +249,7 @@ const TodoForm: React.FC = () => {
 
       {/* Section for displaying successful tasks */}
       <div>
-        <h3 className="mt-10 text-xl font-semibold">
+        <h3 className="mt-10 text-xl font-semibold text-white">
           Successful tasks: {successfulTasks.length}
         </h3>
         {/* Conditionally render skeleton */}
@@ -255,10 +264,13 @@ const TodoForm: React.FC = () => {
         ) : (
           // Render successful tasks list when not showing skeleton
           successfulTasks.map((task) => (
-            <Card key={task.id} className="w-full mt-5">
+            <Card
+              key={task.id}
+              className="w-full mt-5 border-purple-400 bg-gray-900"
+            >
               <CardHeader>
                 <div className="flex items-center justify-between">
-                  <CardTitle className="font-normal text-xl line-through">
+                  <CardTitle className="font-normal text-xl line-through text-purple-400">
                     {task.title}
                   </CardTitle>
                 </div>
