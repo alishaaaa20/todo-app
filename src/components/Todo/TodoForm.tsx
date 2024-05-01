@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardTitle, CardHeader, CardContent } from "@/components/ui/card";
+import { Card, CardTitle, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, Pencil, Trash } from "lucide-react";
@@ -10,7 +10,7 @@ const TodoForm: React.FC = () => {
     <>
       <div className="flex w-full max-w-sm items-center space-x-2">
         <Input type="text" placeholder="Add a new task" />
-        <Button type="submit">
+        <Button type="submit" className="p-1 text-sm">
           <Plus />
         </Button>
       </div>
@@ -21,11 +21,11 @@ const TodoForm: React.FC = () => {
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle className="font-normal text-xl">Task</CardTitle>
-            <div className="flex space-x-2 pl-20">
-              <Button variant="outline">
+            <div className="flex space-x-2">
+              <Button variant="outline" className="p-2 text-sm">
                 <Pencil />
               </Button>
-              <Button variant="destructive">
+              <Button variant="destructive" className="p-2 text-sm">
                 <Trash />
               </Button>
             </div>
