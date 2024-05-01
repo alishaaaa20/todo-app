@@ -104,7 +104,9 @@ const TodoForm: React.FC = () => {
       </form>
 
       <div>
-        <h3 className="mt-10 text-xl font-semibold">Tasks to do:</h3>
+        <h3 className="mt-10 text-xl font-semibold">
+          Tasks to do ({tasks.length}):
+        </h3>
       </div>
 
       {tasks.map((task) => (
@@ -201,12 +203,14 @@ const TodoForm: React.FC = () => {
 
       {/* Displaying the list of successful tasks */}
       <div>
-        <h3 className="mt-10 text-xl font-semibold">Successful tasks:</h3>
+        <h3 className="mt-10 text-xl font-semibold">
+          Successful tasks ({successfulTasks.length}):
+        </h3>
         {successfulTasks.map((task) => (
           <Card key={task.id} className="w-full mt-5">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle className="font-normal text-xl 	text-decoration-line: line-through">
+                <CardTitle className="font-normal text-xl text-decoration-line: line-through">
                   {task.title}
                 </CardTitle>
               </div>
