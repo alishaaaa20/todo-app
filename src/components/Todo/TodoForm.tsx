@@ -15,6 +15,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
+import { useToast } from "@/components/ui/use-toast";
 
 interface Task {
   id: number;
@@ -24,9 +25,12 @@ interface Task {
 const TodoForm: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [taskTitle, setTaskTitle] = useState("");
+  const [successfulTasks, setSuccessfulTasks] = useState<Task[]>([]);
   const [taskToDelete, setTaskToDelete] = useState<Task | null>(null);
   const [taskToEdit, setTaskToEdit] = useState<Task | null>(null);
   const [editTaskTitle, setEditTaskTitle] = useState("");
+
+  const { toast } = useToast();
 
   const handleAddTask = (event: React.FormEvent) => {
     event.preventDefault();
@@ -69,6 +73,15 @@ const TodoForm: React.FC = () => {
       setTaskToEdit(null);
       setEditTaskTitle("");
     }
+  };
+
+  const handleCompleteTask = (task: Task) => {
+    setSuccessfulTasks((prev) => [...prev, task]);
+    setTasks((prev) => prev.filter((t) => t.id !== task.id));
+
+    toast({
+      description: "Your task is successfully completed.",
+    });
   };
 
   return (
@@ -138,9 +151,12 @@ const TodoForm: React.FC = () => {
                     </DialogContent>
                   </Dialog>
                 )}
+
+                {/* Button for completing a task */}
                 <Button
                   variant="outline"
                   className="p-2 text-sm border-green-500 text-green-500 hover:bg-green-100"
+                  onClick={() => handleCompleteTask(task)}
                 >
                   <Check />
                 </Button>
@@ -180,6 +196,22 @@ const TodoForm: React.FC = () => {
           </CardHeader>
         </Card>
       ))}
+
+      {/* Displaying the list of successful tasks */}
+      <div>
+        <h3 className="mt-10 text-xl font-semibold">Completed tasks:</h3>
+        {successfulTasks.map((task) => (
+          <Card key={task.id} className="w-full mt-5">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <CardTitle className="font-normal text-xl">
+                  {task.title}
+                </CardTitle>
+              </div>
+            </CardHeader>
+          </Card>
+        ))}
+      </div>
     </>
   );
 };
