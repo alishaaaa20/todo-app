@@ -5,6 +5,14 @@ import { Card, CardTitle, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, Pencil, Trash, Check } from "lucide-react";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 
 interface Task {
   id: number;
@@ -14,6 +22,7 @@ interface Task {
 const TodoForm: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [taskTitle, setTaskTitle] = useState("");
+  const [taskToDelete, setTaskToDelete] = useState<Task | null>(null);
 
   const handleAddTask = (event: React.FormEvent) => {
     event.preventDefault();
@@ -26,9 +35,20 @@ const TodoForm: React.FC = () => {
       setTaskTitle("");
     }
   };
+
   const handleDeleteTask = (id: number) => {
-    // Filter out the task with the given id
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+  };
+
+  const confirmDeleteTask = () => {
+    if (taskToDelete) {
+      handleDeleteTask(taskToDelete.id);
+      setTaskToDelete(null);
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setTaskToDelete(null);
   };
 
   return (
@@ -47,6 +67,7 @@ const TodoForm: React.FC = () => {
           <Plus />
         </Button>
       </form>
+
       <div>
         <h3 className="mt-10 text-xl font-semibold">Tasks to do:</h3>
       </div>
@@ -68,13 +89,39 @@ const TodoForm: React.FC = () => {
                 >
                   <Check />
                 </Button>
-                <Button
-                  variant="destructive"
-                  className="p-2 text-sm"
-                  onClick={() => handleDeleteTask(task.id)}
-                >
-                  <Trash />
-                </Button>
+
+                {/* DialogTrigger wrapped around delete button */}
+                <Dialog>
+                  <DialogTrigger>
+                    <Button
+                      variant="destructive"
+                      className="p-2 text-sm"
+                      onClick={() => setTaskToDelete(task)}
+                    >
+                      <Trash />
+                    </Button>
+                  </DialogTrigger>
+
+                  {/* DialogContent */}
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>
+                        Are you sure you want to delete this task?
+                      </DialogTitle>
+                      <DialogDescription>
+                        This action cannot be undone.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="mt-4 flex justify-end space-x-2">
+                      <Button variant="destructive" onClick={confirmDeleteTask}>
+                        Confirm
+                      </Button>
+                      <Button variant="outline" onClick={handleCancelDelete}>
+                        Cancel
+                      </Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
               </div>
             </div>
           </CardHeader>
