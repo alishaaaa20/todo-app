@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, Pencil, Trash, Check } from "lucide-react";
@@ -104,7 +104,7 @@ const TodoForm: React.FC = () => {
       {/* Form for adding a new task */}
       <form
         onSubmit={handleAddTask}
-        className="flex w-full max-w-sm items-center space-x-2 text-white"
+        className="flex w-full mx-auto items-center space-x-2 text-white"
       >
         <Input
           type="text"
@@ -140,108 +140,104 @@ const TodoForm: React.FC = () => {
           tasks.map((task) => (
             <Card
               key={task.id}
-              className="mt-5 max-w-sm items-center border-none bg-gray-900"
+              className="w-full p-0 pl-3 mt-5 border-none bg-gray-900"
             >
-              <CardHeader>
-                <div className="flex items-center justify-between ">
-                  <CardTitle className="font-normal text-xl text-purple-400">
-                    {task.title}
-                  </CardTitle>
-                  <div className="flex space-x-2">
-                    {/* Edit task button */}
-                    <Button
-                      variant="outline"
-                      className="p-2 text-sm bg-gray-900 border-none text-purple-400 hover:bg-purple-700"
-                      onClick={() => openEditDialog(task)}
-                    >
-                      <Pencil />
-                    </Button>
+              <div className="flex items-center justify-between ">
+                <CardTitle className="font-normal   text-base text-purple-400">
+                  {task.title}
+                </CardTitle>
+                <div className="flex space-x-2">
+                  {/* Edit task button */}
+                  <Button
+                    variant="outline"
+                    className="p-2 text-sm bg-gray-900 border-none text-purple-400 hover:bg-purple-700"
+                    onClick={() => openEditDialog(task)}
+                  >
+                    <Pencil className="w-5 h-5" />
+                  </Button>
 
-                    {/* Dialog for editing task */}
-                    {taskToEdit && taskToEdit.id === task.id && (
-                      <Dialog open onOpenChange={() => setTaskToEdit(null)}>
-                        <DialogContent>
-                          <DialogHeader>
-                            <DialogTitle className="text-white">
-                              Edit Task
-                            </DialogTitle>
-                            <DialogDescription>
-                              Make changes to your task here. Click save when
-                              you're done.
-                            </DialogDescription>
-                          </DialogHeader>
-                          <div className="grid gap-4 py-4">
-                            <div className="grid grid-cols-4 items-center gap-4">
-                              <Label htmlFor="edit-task" className="text-right">
-                                Task
-                              </Label>
-                              <Input
-                                id="edit-task"
-                                value={editTaskTitle}
-                                onChange={(e) =>
-                                  setEditTaskTitle(e.target.value)
-                                }
-                                className="col-span-3 text-white border-purple-400"
-                              />
-                            </div>
-                          </div>
-                          <DialogFooter>
-                            <Button onClick={handleEditTask}>
-                              Save changes
-                            </Button>
-                          </DialogFooter>
-                        </DialogContent>
-                      </Dialog>
-                    )}
-
-                    {/* Complete task button */}
-                    <Button
-                      variant="outline"
-                      className="p-2 text-sm bg-gray-900 border-none text-purple-400 hover:bg-purple-700"
-                      onClick={() => handleCompleteTask(task)}
-                    >
-                      <Check />
-                    </Button>
-
-                    {/* Delete task button */}
-                    <Dialog>
-                      <DialogTrigger>
-                        <Button
-                          variant="outline"
-                          className="p-2 text-sm border-none bg-gray-900 text-purple-400 hover:bg-purple-700"
-                          onClick={() => setTaskToDelete(task)}
-                        >
-                          <Trash />
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent className="text-white">
+                  {/* Dialog for editing task */}
+                  {taskToEdit && taskToEdit.id === task.id && (
+                    <Dialog open onOpenChange={() => setTaskToEdit(null)}>
+                      <DialogContent>
                         <DialogHeader>
-                          <DialogTitle>
-                            Are you sure you want to delete this task?
+                          <DialogTitle className="text-white">
+                            Edit Task
                           </DialogTitle>
                           <DialogDescription>
-                            This action cannot be undone.
+                            Make changes to your task here. Click save when
+                            you're done.
                           </DialogDescription>
                         </DialogHeader>
-                        <div className="mt-4 flex justify-end space-x-2">
-                          <Button
-                            variant="destructive"
-                            onClick={confirmDeleteTask}
-                          >
-                            Confirm
-                          </Button>
-                          <Button
-                            variant="outline"
-                            onClick={handleCancelDelete}
-                          >
-                            Cancel
-                          </Button>
+                        <div className="grid gap-4 py-4">
+                          <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="edit-task" className="text-right">
+                              Task
+                            </Label>
+                            <Input
+                              id="edit-task"
+                              value={editTaskTitle}
+                              onChange={(e) => setEditTaskTitle(e.target.value)}
+                              className="col-span-3 text-white border-purple-400"
+                            />
+                          </div>
                         </div>
+                        <DialogFooter>
+                          <Button
+                            className="hover:bg-purple-700 bg-purple-400"
+                            onClick={handleEditTask}
+                          >
+                            Save changes
+                          </Button>
+                        </DialogFooter>
                       </DialogContent>
                     </Dialog>
-                  </div>
+                  )}
+
+                  {/* Complete task button */}
+                  <Button
+                    variant="outline"
+                    className="p-2 text-sm bg-gray-900 border-none text-purple-400 hover:bg-purple-700"
+                    onClick={() => handleCompleteTask(task)}
+                  >
+                    <Check className="w-5 h-5" />
+                  </Button>
+
+                  {/* Delete task button */}
+                  <Dialog>
+                    <DialogTrigger>
+                      <Button
+                        variant="outline"
+                        className="p-2 text-sm border-none bg-gray-900 text-purple-400 hover:bg-purple-700"
+                        onClick={() => setTaskToDelete(task)}
+                      >
+                        <Trash className="w-5 h-5" />
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="text-white">
+                      <DialogHeader>
+                        <DialogTitle>
+                          Are you sure you want to delete this task?
+                        </DialogTitle>
+                        <DialogDescription>
+                          This action cannot be undone.
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="mt-4 flex justify-end space-x-2">
+                        <Button
+                          variant="destructive"
+                          onClick={confirmDeleteTask}
+                        >
+                          Confirm
+                        </Button>
+                        <Button variant="outline" onClick={handleCancelDelete}>
+                          Cancel
+                        </Button>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
                 </div>
-              </CardHeader>
+              </div>
             </Card>
           ))
         )}
@@ -264,14 +260,15 @@ const TodoForm: React.FC = () => {
         ) : (
           // Render successful tasks list when not showing skeleton
           successfulTasks.map((task) => (
-            <Card key={task.id} className="w-full mt-5 border-none bg-gray-900">
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle className="font-normal text-xl line-through text-green-400">
-                    {task.title}
-                  </CardTitle>
-                </div>
-              </CardHeader>
+            <Card
+              key={task.id}
+              className="w-full p-2 pl-3 mt-5 border-none bg-gray-900"
+            >
+              <div className="flex items-center justify-between">
+                <CardTitle className="font-normal text-base line-through text-green-400">
+                  {task.title}
+                </CardTitle>
+              </div>
             </Card>
           ))
         )}
