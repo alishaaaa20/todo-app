@@ -13,14 +13,29 @@ const TodoForm: React.FC = () => {
         <Input type="add" placeholder="Add a new task" />
         <Button type="submit">Add</Button>
       </div>
-      <Card>
+      <Card className="p-5 mt-10">
         <CardHeader>
           <CardTitle>Task Title</CardTitle>
         </CardHeader>
         <CardContent>
           <p>Task Content</p>
         </CardContent>
-        <Button variant="outline">Button</Button>
+        <div>
+          <Button
+            className="flex w-full max-w-sm items-center space-x-2"
+            variant="outline"
+          >
+            Edit
+          </Button>
+        </div>
+        <div className="mt-3">
+          <Button
+            className="flex w-full max-w-sm items-center space-x-2"
+            variant="outline"
+          >
+            Delete
+          </Button>
+        </div>
       </Card>
     </>
   );
