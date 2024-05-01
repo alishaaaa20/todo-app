@@ -10,7 +10,7 @@ const TodoForm: React.FC = () => {
     <>
       <div className="flex w-full max-w-sm items-center space-x-2">
         <Input type="text" placeholder="Add a new task" />
-        <Button type="submit" className="p-1 text-sm">
+        <Button type="submit" className="p-2 text-sm">
           <Plus />
         </Button>
       </div>
