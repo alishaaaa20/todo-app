@@ -5,6 +5,7 @@ import { Card, CardTitle, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, Pencil, Trash, Check } from "lucide-react";
+import { Label } from "@/components/ui/label";
 import {
   Dialog,
   DialogTrigger,
@@ -12,6 +13,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
+  DialogFooter,
 } from "@/components/ui/dialog";
 
 interface Task {
@@ -23,6 +25,8 @@ const TodoForm: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [taskTitle, setTaskTitle] = useState("");
   const [taskToDelete, setTaskToDelete] = useState<Task | null>(null);
+  const [taskToEdit, setTaskToEdit] = useState<Task | null>(null);
+  const [editTaskTitle, setEditTaskTitle] = useState("");
 
   const handleAddTask = (event: React.FormEvent) => {
     event.preventDefault();
@@ -49,6 +53,22 @@ const TodoForm: React.FC = () => {
 
   const handleCancelDelete = () => {
     setTaskToDelete(null);
+  };
+
+  const openEditDialog = (task: Task) => {
+    setTaskToEdit(task);
+    setEditTaskTitle(task.title);
+  };
+
+  const handleEditTask = () => {
+    if (taskToEdit && editTaskTitle.trim()) {
+      const updatedTasks = tasks.map((task) =>
+        task.id === taskToEdit.id ? { ...task, title: editTaskTitle } : task
+      );
+      setTasks(updatedTasks);
+      setTaskToEdit(null);
+      setEditTaskTitle("");
+    }
   };
 
   return (
@@ -80,9 +100,44 @@ const TodoForm: React.FC = () => {
                 {task.title}
               </CardTitle>
               <div className="flex space-x-2">
-                <Button variant="outline" className="p-2 text-sm">
+                <Button
+                  variant="outline"
+                  className="p-2 text-sm"
+                  onClick={() => openEditDialog(task)}
+                >
                   <Pencil />
                 </Button>
+
+                {/* Dialog for editing task */}
+                {taskToEdit && taskToEdit.id === task.id && (
+                  <Dialog open={true} onOpenChange={() => setTaskToEdit(null)}>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>Edit Task</DialogTitle>
+                        <DialogDescription>
+                          Make changes to your task here. Click save when you're
+                          done.
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="grid gap-4 py-4">
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label htmlFor="edit-task" className="text-right">
+                            Task
+                          </Label>
+                          <Input
+                            id="edit-task"
+                            value={editTaskTitle}
+                            onChange={(e) => setEditTaskTitle(e.target.value)}
+                            className="col-span-3"
+                          />
+                        </div>
+                      </div>
+                      <DialogFooter>
+                        <Button onClick={handleEditTask}>Save changes</Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
+                )}
                 <Button
                   variant="outline"
                   className="p-2 text-sm border-green-500 text-green-500 hover:bg-green-100"
@@ -90,7 +145,7 @@ const TodoForm: React.FC = () => {
                   <Check />
                 </Button>
 
-                {/* DialogTrigger wrapped around delete button */}
+                {/* Dialog for deleting task */}
                 <Dialog>
                   <DialogTrigger>
                     <Button
@@ -101,8 +156,6 @@ const TodoForm: React.FC = () => {
                       <Trash />
                     </Button>
                   </DialogTrigger>
-
-                  {/* DialogContent */}
                   <DialogContent>
                     <DialogHeader>
                       <DialogTitle>
